@@ -1,10 +1,22 @@
-import * as basicLightbox from 'basiclightbox';
+import React, { Component } from 'react';
+import styles from '../../components/Modal/Modal.module.css';
 
-const instance = basicLightbox.create(`<div class="overlay">
-  <div class="modal">
-    <img src="assets/images/image.png" width="800" height="600">
-  </div>
-</div>
-`);
+export default class Modal extends Component {
+  componentDidMount() {
+    console.log('Modal componentDidMount');
+  }
 
-instance.show();
+  componentWillUnmount() {
+    console.log('Modal conmonentWillUnmount');
+  }
+
+  render() {
+    return (
+      <div className={styles.overlay}>
+        <div className={styles.modal}>
+          <img src="" alt="" />
+        </div>
+      </div>
+    );
+  }
+}
