@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { createPortal } from 'react-dom';
 import styles from '../../components/Modal/Modal.module.css';
 
 const modalRoot = document.querySelector('#modal-root');
-export default class Modal extends Component {
+export default class Modal extends PureComponent {
   componentDidMount() {
     console.log('Modal componentDidMount');
 
