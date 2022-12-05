@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-// import { Searchbar } from './Searchbar/Searchbar';
-// import { ImageGallery } from './ImageGallery/ImageGallery';
+import { Searchbar } from './Searchbar/Searchbar';
+import { ImageGallery } from './ImageGallery/ImageGallery';
 // import axios from 'axios';
 import Modal from './Modal';
 
@@ -65,9 +65,9 @@ export class App extends Component {
           </Modal>
         )}
 
-        {/* <Searchbar />
+        <Searchbar />
         {images.length > 0 ? <ImageGallery images={images} /> : null}
-        <ImageGallery /> */}
+        <ImageGallery />
       </div>
     );
   }
