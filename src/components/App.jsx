@@ -51,7 +51,7 @@ export class App extends Component {
           Открыть модалку
         </button>
         {showModal && (
-          <Modal>
+          <Modal onClose={this.toggleModal}>
             <h1>Здесь будет изображение</h1>
             <p>
               Lorem ipsum dolor, sit amet consectetur adipisicing elit.
