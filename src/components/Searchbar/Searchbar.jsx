@@ -1,5 +1,6 @@
 // import PropTypes from 'prop-types';
 import styles from './Searchbar.module.css';
+// import toast from 'react-toast';
 
 export const Searchbar = () => {
   return (
@@ -17,6 +18,7 @@ export const Searchbar = () => {
           placeholder="Search images and photos"
         />
       </form>
+      {/* toast("Wow so easy!"); */}
     </header>
   );
 };

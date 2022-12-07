@@ -3,6 +3,7 @@ import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 // import axios from 'axios';
 import Modal from './Modal';
+// import { ToastContainer } from 'react-toastify';
 
 // axios.defaults.baseURL = 'https://pixabay.com/api/';
 // Your API key: 30800169-3713389dad872250f057e0e33
@@ -68,6 +69,7 @@ export class App extends Component {
         <Searchbar />
         {images.length > 0 ? <ImageGallery images={images} /> : null}
         <ImageGallery />
+        {/* <ToastContainer auroclose={3000} /> */}
       </div>
     );
   }
