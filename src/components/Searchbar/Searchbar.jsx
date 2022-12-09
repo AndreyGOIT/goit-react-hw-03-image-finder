@@ -1,24 +1,50 @@
 // import PropTypes from 'prop-types';
+import { Component } from 'react';
 import styles from './Searchbar.module.css';
 // import toast from 'react-toast';
 
-export const Searchbar = () => {
-  return (
-    <header className={styles.Searchbar}>
-      <form className={styles.SearchForm}>
-        <button type="submit" className={styles.SearchFormButton}>
-          <span className={styles.SearchFormButtonLabel}>Search</span>
-        </button>
+export class Searchbar extends Component {
+  state = {
+    query: '',
+  };
+  handleInput = e => {
+    const { value } = e.currentTarget;
+    console.log({ value });
+    this.setState({ query: value.toLowerCase().trim() });
+    console.log(this.state.query);
+  };
+  handleSubmit = e => {
+    e.preventDefault();
+    const { query } = this.state;
+    if (query === '') {
+      alert('Input some world!');
+      return;
+    }
+    this.props.onSubmit(query);
+    this.setState({ query: '' });
+  };
 
-        <input
-          className={styles.SearchFormInput}
-          type="text"
-          autocomplete="off"
-          autofocus
-          placeholder="Search images and photos"
-        />
-      </form>
-      {/* toast("Wow so easy!"); */}
-    </header>
-  );
-};
+  render() {
+    const { query } = this.state;
+    return (
+      <header className={styles.Searchbar}>
+        <form className={styles.SearchForm} onSubmit={this.handleSubmit}>
+          <button type="submit" className={styles.SearchFormButton}>
+            <span className={styles.SearchFormButtonLabel}>Search</span>
+          </button>
+
+          <input
+            className={styles.SearchFormInput}
+            type="text"
+            autocomplete="off"
+            autofocus
+            placeholder="Search images and photos"
+            value={query}
+            onChange={this.handleInput}
+          />
+        </form>
+        {/* toast("Wow so easy!"); */}
+      </header>
+    );
+  }
+}

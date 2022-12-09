@@ -18,16 +18,34 @@ export class App extends Component {
     this.setState(({ showModal }) => ({ showModal: !showModal }));
   };
 
+  onSubmit = query => {
+    this.setState({
+      query,
+      images: [],
+      page: 1,
+      isVisible: false,
+      isEmpty: false,
+    });
+    console.log(this.state);
+  };
+
   async componentDidMount() {
+    // console.log(this.state);
+    // console.log(this.state.query);
     const response = await axios.get(
       'https://pixabay.com/api/?q=cat&page=1&key=30800169-3713389dad872250f057e0e33&image_type=photo&orientation=horizontal&per_page=12'
     );
-    // const { id, webformatURL, largeImageURL } = response.data.hits;
-    console.log(response.data.hits);
+    // console.log(response.data.hits);
     this.setState({ images: response.data.hits });
-    // this.setState({ images: { id, webformatURL, largeImageURL } });
-    console.log(this.state.images);
+    // console.log(this.state.images);
   }
+
+  // onLoadMore = () => {
+  //   this.setState(prevState => ({
+  //     isVisible: false,
+  //     page: prevState.page + 1,
+  //   }));
+  // };
 
   render() {
     const { images, showModal } = this.state;
@@ -51,7 +69,7 @@ export class App extends Component {
           </Modal>
         )}
 
-        <Searchbar />
+        <Searchbar onSubmit={this.onSubmit} />
         {images.length && <ImageGallery images={images} />}
         {/* <ToastContainer auroclose={3000} /> */}
       </div>
