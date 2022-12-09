@@ -1,24 +1,12 @@
 import React, { Component } from 'react';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
-// import axios from 'axios';
+import axios from 'axios';
 import Modal from './Modal';
 // import { ToastContainer } from 'react-toastify';
 
 // axios.defaults.baseURL = 'https://pixabay.com/api/';
 // Your API key: 30800169-3713389dad872250f057e0e33
-
-// const ImageGallery = ({ imageGallery }) => (
-//   <ul>
-//     {imageGallery.map(({ objectID, url, title }) => (
-//       <li key={objectID}>
-//         <a href={url} target="_blank" rel="noreferrer noopener">
-//           {title}
-//         </a>
-//       </li>
-//     ))}
-//   </ul>
-// );
 
 export class App extends Component {
   state = {
@@ -30,10 +18,16 @@ export class App extends Component {
     this.setState(({ showModal }) => ({ showModal: !showModal }));
   };
 
-  // async componentDidMount() {
-  //   const response = await axios.get('/search?query=react');
-  //   this.setState({ images: response.data.hits });
-  // }
+  async componentDidMount() {
+    const response = await axios.get(
+      'https://pixabay.com/api/?q=cat&page=1&key=30800169-3713389dad872250f057e0e33&image_type=photo&orientation=horizontal&per_page=12'
+    );
+    // const { id, webformatURL, largeImageURL } = response.data.hits;
+    console.log(response.data.hits);
+    this.setState({ images: response.data.hits });
+    // this.setState({ images: { id, webformatURL, largeImageURL } });
+    console.log(this.state.images);
+  }
 
   render() {
     const { images, showModal } = this.state;
@@ -67,8 +61,7 @@ export class App extends Component {
         )}
 
         <Searchbar />
-        {images.length > 0 ? <ImageGallery images={images} /> : null}
-        <ImageGallery />
+        {images.length && <ImageGallery images={images} />}
         {/* <ToastContainer auroclose={3000} /> */}
       </div>
     );
