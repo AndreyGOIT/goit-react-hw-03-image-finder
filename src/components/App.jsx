@@ -39,7 +39,12 @@ export class App extends Component {
     this.setState({ images: response.data.hits });
     // console.log(this.state.images);
   }
-
+  componentDidUpdate = (_, prevState) => {
+    const { query, page } = this.state;
+    if (prevState.query !== query || prevState.page !== page) {
+      this.getPhotos(query, page);
+    }
+  };
   // onLoadMore = () => {
   //   this.setState(prevState => ({
   //     isVisible: false,
