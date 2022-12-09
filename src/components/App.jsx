@@ -32,16 +32,7 @@ export class App extends Component {
   render() {
     const { images, showModal } = this.state;
     return (
-      <div
-      // style={{
-      //   height: '100vh',
-      //   display: 'flex',
-      //   justifyContent: 'center',
-      //   alignItems: 'center',
-      //   fontSize: 40,
-      //   color: '#010101',
-      // }}
-      >
+      <div>
         <button type="button" onClick={this.toggleModal}>
           Открыть модалку
         </button>
