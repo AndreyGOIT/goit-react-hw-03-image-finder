@@ -45,6 +45,26 @@ export class App extends Component {
       this.getPhotos(query, page);
     }
   };
+  getPhotos = (query, page) => {
+    const params = {
+      g: query,
+      page: page,
+      key: '30800169-3713389dad872250f057e0e33',
+      image_type: 'photo',
+      orientation: 'horizontal',
+      per_page: '12',
+    };
+    axios
+      .get('https://pixabay.com/api/', { params })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .finally(this.setState({ page: 1 }));
+    // this.setState({ images: response.data.hits });
+  };
   // onLoadMore = () => {
   //   this.setState(prevState => ({
   //     isVisible: false,
