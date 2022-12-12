@@ -14,6 +14,8 @@ export class App extends Component {
     images: [],
     showModal: false,
     isLoading: false,
+    error: null,
+    // status: 'idle',
   };
 
   toggleModal = () => {
@@ -47,17 +49,20 @@ export class App extends Component {
       per_page: '12',
     };
     console.log(params.g);
-    axios
-      .get('https://pixabay.com/api/', { params })
-      .then(response => {
-        // console.log(response);
-        this.setState({ images: response.data.hits });
-      })
-      .then(console.log('Images comes'))
-      .catch(function (error) {
-        console.log(error);
-      })
-      .finally(this.setState({ page: 1 }));
+    this.setState({ isLoading: true });
+    setTimeout(() => {
+      axios
+        .get('https://pixabay.com/api/', { params })
+        .then(response => {
+          if (response) {
+            return this.setState({ images: response.data.hits });
+          }
+          return Promise.reject(new Error(`No images with name ${query}`));
+        })
+        .catch(error => this.setState({ error }))
+        .finally(() => this.setState({ isLoading: false }));
+      // .finally(this.setState({ page: 1 }));
+    }, 1000);
   };
   // onLoadMore = () => {
   //   this.setState(prevState => ({
@@ -67,7 +72,11 @@ export class App extends Component {
   // };
 
   render() {
-    const { images, showModal, isLoading } = this.state;
+    const { images, showModal, isLoading, error } = this.state;
+
+    // if (status === 'idle') {
+    //   return;
+    // }
     return (
       <div>
         <button type="button" onClick={this.toggleModal}>
@@ -98,6 +107,7 @@ export class App extends Component {
             wrapperClass="blocks-wrapper"
           />
         )}
+        {error && <h1>{error.message}</h1>}
         {images.length && <ImageGallery images={images} />}
         <ToastContainer autoClose={3000} />
       </div>

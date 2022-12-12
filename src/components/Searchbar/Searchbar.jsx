@@ -30,23 +30,25 @@ export class Searchbar extends Component {
   render() {
     const { query } = this.state;
     return (
-      <header className={styles.Searchbar}>
-        <form className={styles.SearchForm} onSubmit={this.handleSubmit}>
-          <button type="submit" className={styles.SearchFormButton}>
-            <ImSearch />
-          </button>
-
-          <input
-            className={styles.SearchFormInput}
-            type="text"
-            autocomplete="off"
-            autofocus
-            placeholder="Search images and photos"
-            value={query}
-            onChange={this.handleInput}
-          />
-        </form>
-      </header>
+      <>
+        <header className={styles.Searchbar}>
+          <form className={styles.SearchForm} onSubmit={this.handleSubmit}>
+            <button type="submit" className={styles.SearchFormButton}>
+              <ImSearch />
+            </button>
+            <input
+              className={styles.SearchFormInput}
+              type="text"
+              autocomplete="off"
+              autofocus
+              placeholder="Search images and photos"
+              value={query}
+              onChange={this.handleInput}
+            />
+          </form>
+        </header>
+        {/* {!query && <p>Input search word!</p>} */}
+      </>
     );
   }
 }
