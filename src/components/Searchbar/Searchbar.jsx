@@ -1,7 +1,7 @@
 // import PropTypes from 'prop-types';
 import { Component } from 'react';
 import styles from './Searchbar.module.css';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import { ImSearch } from 'react-icons/im';
 
 export class Searchbar extends Component {
@@ -19,8 +19,8 @@ export class Searchbar extends Component {
     const { query } = this.state;
     console.log(query);
     if (query === '') {
-      toast('Input some world!');
-      // alert('Input some world!');
+      // toast.error('Input some world!');
+      alert('Input some world!');
       return;
     }
     this.props.onSubmit(query);
@@ -46,7 +46,6 @@ export class Searchbar extends Component {
             onChange={this.handleInput}
           />
         </form>
-        {/* toast("Wow so easy!"); */}
       </header>
     );
   }

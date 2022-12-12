@@ -31,18 +31,6 @@ export class App extends Component {
     console.log(this.state);
   };
 
-  // async componentDidMount() {
-  //   this.setState({ isLoading: true });
-
-  //   // console.log(this.state);
-  //   // console.log(this.state.query);
-  //   const response = await axios.get(
-  //     'https://pixabay.com/api/?q=cat&page=1&key=30800169-3713389dad872250f057e0e33&image_type=photo&orientation=horizontal&per_page=12'
-  //   );
-  //   // console.log(response.data.hits);
-  //   this.setState({ images: response.data.hits, isLoading: false });
-  //   // console.log(this.state.images);
-  // }
   componentDidUpdate = (_, prevState) => {
     const { query, page } = this.state;
     if (prevState.query !== query || prevState.page !== page) {
@@ -61,8 +49,8 @@ export class App extends Component {
     console.log(params.g);
     axios
       .get('https://pixabay.com/api/', { params })
-      .then(function (response) {
-        console.log(response);
+      .then(response => {
+        // console.log(response);
         this.setState({ images: response.data.hits });
       })
       .then(console.log('Images comes'))
@@ -99,7 +87,6 @@ export class App extends Component {
             </button>
           </Modal>
         )}
-
         <Searchbar onSubmit={this.onSubmit} />
         {isLoading && (
           <Blocks
