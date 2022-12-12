@@ -54,16 +54,19 @@ export class App extends Component {
       orientation: 'horizontal',
       per_page: '12',
     };
-    axios
+    console.log(params.g);
+    const response = axios
       .get('https://pixabay.com/api/', { params })
       .then(function (response) {
         console.log(response);
+        console.log(response.data.hits);
       })
       .catch(function (error) {
         console.log(error);
       })
       .finally(this.setState({ page: 1 }));
-    // this.setState({ images: response.data.hits });
+    console.log(response);
+    this.setState({ images: response.data.hits });
   };
   // onLoadMore = () => {
   //   this.setState(prevState => ({
