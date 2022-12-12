@@ -1,7 +1,8 @@
 // import PropTypes from 'prop-types';
 import { Component } from 'react';
 import styles from './Searchbar.module.css';
-// import toast from 'react-toast';
+import { toast } from 'react-toastify';
+import { ImSearch } from 'react-icons/im';
 
 export class Searchbar extends Component {
   state = {
@@ -9,15 +10,17 @@ export class Searchbar extends Component {
   };
   handleInput = e => {
     const { value } = e.currentTarget;
-    console.log({ value });
+    // console.log({ value });
     this.setState({ query: value.toLowerCase().trim() });
-    console.log(this.state.query);
+    // console.log(this.state.query);
   };
   handleSubmit = e => {
     e.preventDefault();
     const { query } = this.state;
+    console.log(query);
     if (query === '') {
-      alert('Input some world!');
+      toast('Input some world!');
+      // alert('Input some world!');
       return;
     }
     this.props.onSubmit(query);
@@ -30,7 +33,7 @@ export class Searchbar extends Component {
       <header className={styles.Searchbar}>
         <form className={styles.SearchForm} onSubmit={this.handleSubmit}>
           <button type="submit" className={styles.SearchFormButton}>
-            <span className={styles.SearchFormButtonLabel}>Search</span>
+            <ImSearch />
           </button>
 
           <input

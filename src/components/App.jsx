@@ -3,7 +3,8 @@ import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import axios from 'axios';
 import Modal from './Modal';
-// import { ToastContainer } from 'react-toastify';
+import { Blocks } from 'react-loader-spinner';
+import { ToastContainer } from 'react-toastify';
 
 // axios.defaults.baseURL = 'https://pixabay.com/api/';
 // Your API key: 30800169-3713389dad872250f057e0e33
@@ -12,6 +13,7 @@ export class App extends Component {
   state = {
     images: [],
     showModal: false,
+    isLoading: false,
   };
 
   toggleModal = () => {
@@ -29,16 +31,18 @@ export class App extends Component {
     console.log(this.state);
   };
 
-  async componentDidMount() {
-    // console.log(this.state);
-    // console.log(this.state.query);
-    const response = await axios.get(
-      'https://pixabay.com/api/?q=cat&page=1&key=30800169-3713389dad872250f057e0e33&image_type=photo&orientation=horizontal&per_page=12'
-    );
-    // console.log(response.data.hits);
-    this.setState({ images: response.data.hits });
-    // console.log(this.state.images);
-  }
+  // async componentDidMount() {
+  //   this.setState({ isLoading: true });
+
+  //   // console.log(this.state);
+  //   // console.log(this.state.query);
+  //   const response = await axios.get(
+  //     'https://pixabay.com/api/?q=cat&page=1&key=30800169-3713389dad872250f057e0e33&image_type=photo&orientation=horizontal&per_page=12'
+  //   );
+  //   // console.log(response.data.hits);
+  //   this.setState({ images: response.data.hits, isLoading: false });
+  //   // console.log(this.state.images);
+  // }
   componentDidUpdate = (_, prevState) => {
     const { query, page } = this.state;
     if (prevState.query !== query || prevState.page !== page) {
@@ -55,18 +59,17 @@ export class App extends Component {
       per_page: '12',
     };
     console.log(params.g);
-    const response = axios
+    axios
       .get('https://pixabay.com/api/', { params })
       .then(function (response) {
         console.log(response);
-        console.log(response.data.hits);
+        this.setState({ images: response.data.hits });
       })
+      .then(console.log('Images comes'))
       .catch(function (error) {
         console.log(error);
       })
       .finally(this.setState({ page: 1 }));
-    console.log(response);
-    this.setState({ images: response.data.hits });
   };
   // onLoadMore = () => {
   //   this.setState(prevState => ({
@@ -76,7 +79,7 @@ export class App extends Component {
   // };
 
   render() {
-    const { images, showModal } = this.state;
+    const { images, showModal, isLoading } = this.state;
     return (
       <div>
         <button type="button" onClick={this.toggleModal}>
@@ -98,8 +101,18 @@ export class App extends Component {
         )}
 
         <Searchbar onSubmit={this.onSubmit} />
+        {isLoading && (
+          <Blocks
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="blocks-loading"
+            wrapperStyle={{}}
+            wrapperClass="blocks-wrapper"
+          />
+        )}
         {images.length && <ImageGallery images={images} />}
-        {/* <ToastContainer auroclose={3000} /> */}
+        <ToastContainer autoClose={3000} />
       </div>
     );
   }
