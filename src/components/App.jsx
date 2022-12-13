@@ -36,10 +36,10 @@ export class App extends Component {
   componentDidUpdate = (_, prevState) => {
     const { query, page } = this.state;
     if (prevState.query !== query || prevState.page !== page) {
-      this.getPhotos(query, page);
+      this.getPhotos(query, page, prevState);
     }
   };
-  getPhotos = (query, page) => {
+  getPhotos = (query, page, prevState) => {
     const params = {
       g: query,
       page: page,
@@ -55,7 +55,11 @@ export class App extends Component {
         .get('https://pixabay.com/api/', { params })
         .then(response => {
           if (response) {
-            return this.setState({ images: response.data.hits });
+            const currentArray = prevState.images;
+            const newArray = response.data.hits;
+            console.log(currentArray);
+            console.log(newArray);
+            return this.setState({ images: [...currentArray, ...newArray] });
           }
           return Promise.reject(new Error(`No images with name ${query}`));
         })
