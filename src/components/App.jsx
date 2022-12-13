@@ -5,6 +5,7 @@ import axios from 'axios';
 import Modal from './Modal';
 import { Blocks } from 'react-loader-spinner';
 import { ToastContainer } from 'react-toastify';
+import { LoadMoreBtn } from './Button/Button';
 
 // axios.defaults.baseURL = 'https://pixabay.com/api/';
 // Your API key: 30800169-3713389dad872250f057e0e33
@@ -68,12 +69,12 @@ export class App extends Component {
       // .finally(this.setState({ page: 1 }));
     }, 1000);
   };
-  // onLoadMore = () => {
-  //   this.setState(prevState => ({
-  //     isVisible: false,
-  //     page: prevState.page + 1,
-  //   }));
-  // };
+  onLoadMore = () => {
+    this.setState(prevState => ({
+      isVisible: false,
+      page: prevState.page + 1,
+    }));
+  };
 
   render() {
     const { images, showModal, isLoading, error } = this.state;
@@ -113,6 +114,7 @@ export class App extends Component {
         )}
         {error && <h1>{error.message}</h1>}
         {images.length && <ImageGallery images={images} />}
+        {images.length && <LoadMoreBtn onClick={this.onLoadMore} />}
         <ToastContainer autoClose={3000} />
       </div>
     );

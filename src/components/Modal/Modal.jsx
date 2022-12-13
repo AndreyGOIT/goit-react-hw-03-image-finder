@@ -35,11 +35,16 @@ export default class Modal extends PureComponent {
   };
 
   render() {
+    console.log(this.props);
+
     return createPortal(
       <div className={styles.overlay} onClick={this.handleBackdropClick}>
         <div className={styles.modal}>
           {this.props.children}
-          <img src="" alt="" />
+          <img
+            src="https://pixabay.com/get/g112a55255d254c4b6c034856ee4359fede0e87f1a84f0808903449e5bd9e2875f2b414805eda5949b2ef8f2fde93fef43bf588aa0534e511f47524efa07ce845_1280.jpg"
+            alt=""
+          />
         </div>
       </div>,
       modalRoot
