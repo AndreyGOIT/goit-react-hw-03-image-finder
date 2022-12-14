@@ -60,13 +60,14 @@ export class App extends Component {
             const newArray = response.data.hits;
             console.log(currentArray);
             console.log(newArray);
-            return this.setState({ images: [...currentArray, ...newArray] });
+            return this.setState(prevState => ({
+              images: [...currentArray, ...newArray],
+            }));
           }
           return Promise.reject(new Error(`No images with name ${query}`));
         })
         .catch(error => this.setState({ error }))
         .finally(() => this.setState({ isLoading: false }));
-      // .finally(this.setState({ page: 1 }));
     }, 1000);
   };
   onLoadMore = () => {

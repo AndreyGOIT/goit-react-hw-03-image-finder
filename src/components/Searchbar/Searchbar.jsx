@@ -19,7 +19,7 @@ export class Searchbar extends Component {
     const { query } = this.state;
     console.log(query);
     if (query === '') {
-      // toast.error('Input some world!');
+      // toast.error('Input something!');
       alert('Input some world!');
       return;
     }
@@ -39,8 +39,8 @@ export class Searchbar extends Component {
             <input
               className={styles.SearchFormInput}
               type="text"
-              autocomplete="off"
-              autofocus
+              autoComplete="off"
+              autoFocus
               placeholder="Search images and photos"
               value={query}
               onChange={this.handleInput}
