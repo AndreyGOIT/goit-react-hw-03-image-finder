@@ -89,14 +89,8 @@ export class App extends Component {
           Открыть модалку
         </button>
         {showModal && (
-          <Modal onClose={this.toggleModal}>
+          <Modal onClose={this.toggleModal} images={images}>
             <h1>Здесь будет изображение</h1>
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Eligendi, error magnam. Illum non, harum obcaecati aliquid
-              deserunt eligendi optio in vero dolorum dicta ea aliquam, suscipit
-              mollitia dolor sunt impedit?
-            </p>
             <button type="button" onClick={this.toggleModal}>
               Закрыть модалку
             </button>
@@ -114,7 +108,9 @@ export class App extends Component {
           />
         )}
         {error && <h1>{error.message}</h1>}
-        {images.length && <ImageGallery images={images} />}
+        {images.length && (
+          <ImageGallery images={images} onClick={this.toggleModal} />
+        )}
         {images.length && <LoadMoreBtn onClick={this.onLoadMore} />}
         <ToastContainer autoClose={3000} />
       </div>
