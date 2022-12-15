@@ -7,19 +7,12 @@ export const ImageGalleryItem = ({ images, onClick }) => {
     <>
       {images.map(({ id, webformatURL, largeImageURL }) => {
         return (
-          <li key={id} className={styles.ImageGalleryItem}>
-            <a
-              href={largeImageURL}
-              target="_blank"
-              rel="noreferrer noopener"
-              onClick={onClick}
-            >
-              <img
-                src={webformatURL}
-                alt=""
-                className={styles.ImageGalleryItemImage}
-              />
-            </a>
+          <li key={id} className={styles.ImageGalleryItem} onClick={onClick}>
+            <img
+              src={webformatURL}
+              alt=""
+              className={styles.ImageGalleryItemImage}
+            />
           </li>
         );
       })}
