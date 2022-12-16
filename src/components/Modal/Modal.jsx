@@ -6,7 +6,6 @@ const modalRoot = document.querySelector('#modal-root');
 export default class Modal extends PureComponent {
   componentDidMount() {
     console.log('Modal componentDidMount');
-    console.log(this.props);
     window.addEventListener('keydown', this.handleKeyDown);
   }
 
@@ -36,7 +35,7 @@ export default class Modal extends PureComponent {
 
   render() {
     console.log(this.props);
-    const largeImage = this.props.images[0].largeImageURL;
+    const largeImage = this.props.largeImage;
 
     return createPortal(
       <div className={styles.overlay} onClick={this.handleBackdropClick}>

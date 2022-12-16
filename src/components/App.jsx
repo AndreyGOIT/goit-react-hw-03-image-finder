@@ -23,6 +23,11 @@ export class App extends Component {
     this.setState(({ showModal }) => ({ showModal: !showModal }));
   };
 
+  onLargeImageURL = largeImageURL => {
+    this.setState({ largeImage: largeImageURL });
+    console.log(this.state.largeImage);
+  };
+
   onSubmit = query => {
     this.setState({
       query,
@@ -78,18 +83,18 @@ export class App extends Component {
   };
 
   render() {
-    const { images, showModal, isLoading, error } = this.state;
+    const { images, showModal, isLoading, error, largeImage } = this.state;
 
     // if (status === 'idle') {
     //   return;
     // }
     return (
       <div>
-        <button type="button" onClick={this.toggleModal}>
+        {/* <button type="button" onClick={this.toggleModal}>
           Открыть модалку
-        </button>
+        </button> */}
         {showModal && (
-          <Modal onClose={this.toggleModal} images={images}>
+          <Modal onClose={this.toggleModal} largeImage={largeImage}>
             <h1>Здесь будет изображение</h1>
             <button type="button" onClick={this.toggleModal}>
               Закрыть модалку
