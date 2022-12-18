@@ -6,6 +6,7 @@ import Modal from './Modal';
 import { Blocks } from 'react-loader-spinner';
 import { ToastContainer } from 'react-toastify';
 import { LoadMoreBtn } from './Button/Button';
+import styles from '../components/App.module.css';
 
 // axios.defaults.baseURL = 'https://pixabay.com/api/';
 // Your API key: 30800169-3713389dad872250f057e0e33
@@ -16,6 +17,7 @@ export class App extends Component {
     showModal: false,
     isLoading: false,
     error: null,
+    largeImage: null,
     // status: 'idle',
   };
 
@@ -24,6 +26,7 @@ export class App extends Component {
   };
 
   onLargeImageURL = largeImageURL => {
+    this.setState(({ showModal }) => ({ showModal: !showModal }));
     this.setState({ largeImage: largeImageURL });
     console.log(this.state.largeImage);
   };
@@ -95,9 +98,12 @@ export class App extends Component {
         </button> */}
         {showModal && (
           <Modal onClose={this.toggleModal} largeImage={largeImage}>
-            <h1>Здесь будет изображение</h1>
-            <button type="button" onClick={this.toggleModal}>
-              Закрыть модалку
+            <button
+              className={styles.button}
+              type="button"
+              onClick={this.toggleModal}
+            >
+              X
             </button>
           </Modal>
         )}
@@ -114,7 +120,7 @@ export class App extends Component {
         )}
         {error && <h1>{error.message}</h1>}
         {images.length && (
-          <ImageGallery images={images} onClick={this.toggleModal} />
+          <ImageGallery images={images} onClick={this.onLargeImageURL} />
         )}
         {images.length && <LoadMoreBtn onClick={this.onLoadMore} />}
         <ToastContainer autoClose={3000} />

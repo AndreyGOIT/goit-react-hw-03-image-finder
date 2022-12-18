@@ -41,7 +41,7 @@ export default class Modal extends PureComponent {
       <div className={styles.overlay} onClick={this.handleBackdropClick}>
         <div className={styles.modal}>
           {this.props.children}
-          <img src={largeImage} alt="" />
+          <img src={largeImage} alt="" width={'100%'} />
         </div>
       </div>,
       modalRoot
