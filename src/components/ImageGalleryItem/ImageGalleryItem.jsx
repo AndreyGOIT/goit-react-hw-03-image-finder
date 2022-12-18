@@ -1,6 +1,5 @@
+import PropTypes from 'prop-types';
 import styles from './ImageGalleryItem.module.css';
-// axios.defaults.baseURL = 'https://pixabay.com/api/';
-// Your API key: 30800169-3713389dad872250f057e0e33
 
 export const ImageGalleryItem = ({ images, onClick }) => {
   return (
@@ -22,4 +21,9 @@ export const ImageGalleryItem = ({ images, onClick }) => {
       })}
     </>
   );
+};
+
+ImageGalleryItem.propTypes = {
+  images: PropTypes.array.isRequired,
+  onClick: PropTypes.func.isRequired,
 };

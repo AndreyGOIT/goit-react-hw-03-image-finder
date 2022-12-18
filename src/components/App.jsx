@@ -4,12 +4,10 @@ import { ImageGallery } from './ImageGallery/ImageGallery';
 import axios from 'axios';
 import Modal from './Modal';
 import { Blocks } from 'react-loader-spinner';
+// import Loader from './Loader/Loader';
 import { ToastContainer } from 'react-toastify';
 import { LoadMoreBtn } from './Button/Button';
 import styles from '../components/App.module.css';
-
-// axios.defaults.baseURL = 'https://pixabay.com/api/';
-// Your API key: 30800169-3713389dad872250f057e0e33
 
 export class App extends Component {
   state = {
@@ -18,7 +16,6 @@ export class App extends Component {
     isLoading: false,
     error: null,
     largeImage: null,
-    // status: 'idle',
   };
 
   toggleModal = () => {
@@ -28,7 +25,6 @@ export class App extends Component {
   onLargeImageURL = largeImageURL => {
     this.setState(({ showModal }) => ({ showModal: !showModal }));
     this.setState({ largeImage: largeImageURL });
-    console.log(this.state.largeImage);
   };
 
   onSubmit = query => {
@@ -39,7 +35,6 @@ export class App extends Component {
       isVisible: false,
       isEmpty: false,
     });
-    console.log(this.state);
   };
 
   componentDidUpdate = (_, prevState) => {
@@ -57,26 +52,22 @@ export class App extends Component {
       orientation: 'horizontal',
       per_page: '12',
     };
-    console.log(params.g);
     this.setState({ isLoading: true });
-    setTimeout(() => {
-      axios
-        .get('https://pixabay.com/api/', { params })
-        .then(response => {
-          if (response) {
-            const currentArray = prevState.images;
-            const newArray = response.data.hits;
-            console.log(currentArray);
-            console.log(newArray);
-            return this.setState(prevState => ({
-              images: [...currentArray, ...newArray],
-            }));
-          }
-          return Promise.reject(new Error(`No images with name ${query}`));
-        })
-        .catch(error => this.setState({ error }))
-        .finally(() => this.setState({ isLoading: false }));
-    }, 1000);
+    axios
+      .get('https://pixabay.com/api/', { params })
+      .then(response => {
+        if (response) {
+          const currentArray = prevState.images;
+          const newArray = response.data.hits;
+
+          return this.setState(prevState => ({
+            images: [...currentArray, ...newArray],
+          }));
+        }
+        return Promise.reject(new Error(`No images with name ${query}`));
+      })
+      .catch(error => this.setState({ error }))
+      .finally(() => this.setState({ isLoading: false }));
   };
   onLoadMore = () => {
     this.setState(prevState => ({
@@ -88,14 +79,8 @@ export class App extends Component {
   render() {
     const { images, showModal, isLoading, error, largeImage } = this.state;
 
-    // if (status === 'idle') {
-    //   return;
-    // }
     return (
       <div>
-        {/* <button type="button" onClick={this.toggleModal}>
-          Открыть модалку
-        </button> */}
         {showModal && (
           <Modal onClose={this.toggleModal} largeImage={largeImage}>
             <button

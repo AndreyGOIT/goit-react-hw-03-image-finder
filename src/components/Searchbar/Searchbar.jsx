@@ -17,7 +17,7 @@ export class Searchbar extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { query } = this.state;
-    console.log(query);
+    // console.log(query);
     if (query === '') {
       // toast.error('Input something!');
       alert('Input some world!');
@@ -47,7 +47,6 @@ export class Searchbar extends Component {
             />
           </form>
         </header>
-        {/* {!query && <p>Input search word!</p>} */}
       </>
     );
   }
