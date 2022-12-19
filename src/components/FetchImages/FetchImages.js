@@ -9,10 +9,11 @@ export async function fetchImages(query, page) {
     orientation: 'horizontal',
     per_page: '12',
   };
-  console.log(params);
+  // console.log(params);
+
   const response = await axios.get('https://pixabay.com/api/', { params });
-  if (!response.ok) {
+  if (!response) {
     throw new Error(response.status);
   }
-  return response.json();
+  return response;
 }

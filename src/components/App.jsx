@@ -110,7 +110,7 @@ export class App extends Component {
           />
         )}
         {error && <h1>{error.message}</h1>}
-        {images.length && (
+        {images.length > 0 && (
           <ImageGallery images={images} onClick={this.onLargeImageURL} />
         )}
         {showBtn && <LoadMoreBtn onClick={this.onLoadMore} />}
