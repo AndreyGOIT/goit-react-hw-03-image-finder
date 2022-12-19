@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
-import axios from 'axios';
+// import axios from 'axios';
 import Modal from './Modal';
 import { Blocks } from 'react-loader-spinner';
 // import Loader from './Loader/Loader';
 import { ToastContainer } from 'react-toastify';
 import { LoadMoreBtn } from './Button/Button';
 import styles from '../components/App.module.css';
+import { fetchImages } from './FetchImages/FetchImages';
 
 export class App extends Component {
   state = {
@@ -16,6 +17,7 @@ export class App extends Component {
     isLoading: false,
     error: null,
     largeImage: null,
+    showBtn: false,
   };
 
   toggleModal = () => {
@@ -44,27 +46,30 @@ export class App extends Component {
     }
   };
   getPhotos = (query, page, prevState) => {
-    const params = {
-      g: query,
-      page: page,
-      key: '30800169-3713389dad872250f057e0e33',
-      image_type: 'photo',
-      orientation: 'horizontal',
-      per_page: '12',
-    };
+    // const params = {
+    //   query: query,
+    //   page: page,
+    //   key: '30800169-3713389dad872250f057e0e33',
+    //   image_type: 'photo',
+    //   orientation: 'horizontal',
+    //   per_page: '12',
+    // };
     this.setState({ isLoading: true });
-    axios
-      .get('https://pixabay.com/api/', { params })
+    console.log(query);
+    // axios
+    //   .get('https://pixabay.com/api/', { params })
+    fetchImages(query, page)
       .then(response => {
         if (response) {
           const currentArray = prevState.images;
           const newArray = response.data.hits;
+          const totalHits = response.data.totalHits;
 
           return this.setState(prevState => ({
             images: [...currentArray, ...newArray],
+            showBtn: this.state.page < Math.ceil(totalHits / 12),
           }));
         }
-        return Promise.reject(new Error(`No images with name ${query}`));
       })
       .catch(error => this.setState({ error }))
       .finally(() => this.setState({ isLoading: false }));
@@ -77,7 +82,8 @@ export class App extends Component {
   };
 
   render() {
-    const { images, showModal, isLoading, error, largeImage } = this.state;
+    const { images, showModal, isLoading, error, largeImage, showBtn } =
+      this.state;
 
     return (
       <div>
@@ -107,7 +113,7 @@ export class App extends Component {
         {images.length && (
           <ImageGallery images={images} onClick={this.onLargeImageURL} />
         )}
-        {images.length && <LoadMoreBtn onClick={this.onLoadMore} />}
+        {showBtn && <LoadMoreBtn onClick={this.onLoadMore} />}
         <ToastContainer autoClose={3000} />
       </div>
     );

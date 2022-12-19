@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import styles from './ImageGalleryItem.module.css';
 
 export const ImageGalleryItem = ({ images, onClick }) => {
+  console.log(images);
   return (
     <>
       {images.map(({ id, webformatURL, largeImageURL }) => {
