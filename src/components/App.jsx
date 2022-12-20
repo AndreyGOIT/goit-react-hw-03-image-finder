@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
-// import axios from 'axios';
 import Modal from './Modal';
 import { Blocks } from 'react-loader-spinner';
-// import Loader from './Loader/Loader';
 import { ToastContainer } from 'react-toastify';
 import { LoadMoreBtn } from './Button/Button';
-// import styles from '../components/App.module.css';
 import { fetchImages } from './FetchImages/FetchImages';
 
 export class App extends Component {
   state = {
+    query: '',
     images: [],
     showModal: false,
     isLoading: false,
@@ -42,28 +40,19 @@ export class App extends Component {
   componentDidUpdate = (_, prevState) => {
     const { query, page } = this.state;
     if (prevState.query !== query || prevState.page !== page) {
-      this.getPhotos(query, page, prevState);
+      this.getPhotos(query, page);
     }
   };
   getPhotos = (query, page, prevState) => {
-    // const params = {
-    //   query: query,
-    //   page: page,
-    //   key: '30800169-3713389dad872250f057e0e33',
-    //   image_type: 'photo',
-    //   orientation: 'horizontal',
-    //   per_page: '12',
-    // };
     this.setState({ isLoading: true });
     console.log(query);
-    // axios
-    //   .get('https://pixabay.com/api/', { params })
+
     fetchImages(query, page)
       .then(response => {
         if (response) {
           const currentArray = prevState.images;
-          const newArray = response.data.hits;
-          const totalHits = response.data.totalHits;
+          const newArray = response.hits;
+          const totalHits = response.totalHits;
 
           return this.setState(prevState => ({
             images: [...currentArray, ...newArray],
@@ -88,15 +77,7 @@ export class App extends Component {
     return (
       <div>
         {showModal && (
-          <Modal onClose={this.toggleModal} largeImage={largeImage}>
-            {/* <button
-              className={styles.button}
-              type="button"
-              onClick={this.toggleModal}
-            >
-              X
-            </button> */}
-          </Modal>
+          <Modal onClose={this.toggleModal} largeImage={largeImage} />
         )}
         <Searchbar onSubmit={this.onSubmit} />
         {isLoading && (
