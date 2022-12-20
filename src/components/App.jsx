@@ -43,14 +43,13 @@ export class App extends Component {
       this.getPhotos(query, page);
     }
   };
-  getPhotos = (query, page, prevState) => {
+  getPhotos = (query, page) => {
     this.setState({ isLoading: true });
-    console.log(query);
 
     fetchImages(query, page)
       .then(response => {
         if (response) {
-          const currentArray = prevState.images;
+          const currentArray = this.prevState.images;
           const newArray = response.hits;
           const totalHits = response.totalHits;
 
