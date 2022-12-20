@@ -7,7 +7,7 @@ import { Blocks } from 'react-loader-spinner';
 // import Loader from './Loader/Loader';
 import { ToastContainer } from 'react-toastify';
 import { LoadMoreBtn } from './Button/Button';
-import styles from '../components/App.module.css';
+// import styles from '../components/App.module.css';
 import { fetchImages } from './FetchImages/FetchImages';
 
 export class App extends Component {
@@ -89,13 +89,13 @@ export class App extends Component {
       <div>
         {showModal && (
           <Modal onClose={this.toggleModal} largeImage={largeImage}>
-            <button
+            {/* <button
               className={styles.button}
               type="button"
               onClick={this.toggleModal}
             >
               X
-            </button>
+            </button> */}
           </Modal>
         )}
         <Searchbar onSubmit={this.onSubmit} />
