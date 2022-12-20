@@ -49,12 +49,11 @@ export class App extends Component {
     fetchImages(query, page)
       .then(response => {
         if (response) {
-          const currentArray = this.prevState.images;
           const newArray = response.hits;
           const totalHits = response.totalHits;
 
           return this.setState(prevState => ({
-            images: [...currentArray, ...newArray],
+            images: [...prevState.images, ...newArray],
             showBtn: this.state.page < Math.ceil(totalHits / 12),
           }));
         }
